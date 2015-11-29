@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatriciaTrie", "PatriciaTrie\PatriciaTrie.csproj", "{F7778C92-4177-4E59-9D7B-862C970F97C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatriciaTrieLib", "PatriciaTrieLib\PatriciaTrieLib.csproj", "{CD2FE3D2-7D76-423D-8A1F-8BF1C056FF43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{A1313DCB-C993-4F23-8AE2-934DF021C745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CD2FE3D2-7D76-423D-8A1F-8BF1C056FF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD2FE3D2-7D76-423D-8A1F-8BF1C056FF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD2FE3D2-7D76-423D-8A1F-8BF1C056FF43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1313DCB-C993-4F23-8AE2-934DF021C745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1313DCB-C993-4F23-8AE2-934DF021C745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1313DCB-C993-4F23-8AE2-934DF021C745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1313DCB-C993-4F23-8AE2-934DF021C745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace PatriciaTrieLib
 {
@@ -11,7 +12,7 @@ namespace PatriciaTrieLib
 
         public PatriciaTrieNode Root { get; private set; }
 
-        public PatriciaTrieNode Find(string key)
+        public int? Find(string key)
         {
             var node = Root;
 
@@ -23,11 +24,16 @@ namespace PatriciaTrieLib
                 node = child;
             }
 
-            return node;
+            node = node.Childs.FirstOrDefault(child => child.Key.Equals('$'));
+
+            return node == null ? null : node.Value;
         }
 
         public void Insert(string key, int value)
         {
+            if (key.Contains('$'))
+                throw new ArgumentException("Key contains not allowed symbols");
+
             var node = Root;
 
             foreach (var e in key)
