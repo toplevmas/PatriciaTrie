@@ -6,7 +6,7 @@ namespace PatriciaTrieLib
     {
         public PatriciaTrie()
         {
-            Root = new PatriciaTrieNode('');
+            Root = new PatriciaTrieNode('\0');
         }
 
         public PatriciaTrieNode Root { get; private set; }
