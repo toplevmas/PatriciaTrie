@@ -4,25 +4,17 @@ namespace PatriciaTrieLib
 {
     public class PatriciaTrieNode
     {
-        public PatriciaTrieNode(char key, PatriciaTrieNode parent = null)
+        public PatriciaTrieNode(char key, byte alphabet, PatriciaTrieNode parent = null)
         {
             Key = key;
             Parent = parent;
-            Childs = new List<PatriciaTrieNode>();
-        }
-
-        public PatriciaTrieNode(char key, PatriciaTrieNode parent, int value)
-            : this('$', parent)
-        {
-            Value = value;
+            Childs = new PatriciaTrieNode[alphabet];
         }
 
         public char Key { get; private set; }
 
-        public int? Value { get; private set; }
-
         public PatriciaTrieNode Parent { get; private set; }
 
-        public List<PatriciaTrieNode> Childs { get; private set; }
+        public PatriciaTrieNode[] Childs { get; private set; }
     }
 }

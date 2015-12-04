@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PatriciaTrieLib
 {
@@ -7,47 +8,51 @@ namespace PatriciaTrieLib
     {
         public PatriciaTrie()
         {
-            Root = new PatriciaTrieNode('\0');
+            _startSymbolCode = (byte) 'a';
+            _lastSymbolCode = (byte) 'e';
+            _alphabet = (byte) (_lastSymbolCode - _startSymbolCode + 2);
+            Root = new PatriciaTrieNode('\0', _alphabet);
         }
 
-        public PatriciaTrieNode Root { get; private set; }
+        private readonly byte _startSymbolCode;
+        private readonly byte _lastSymbolCode;
+        private readonly byte _alphabet;
 
-        public int? Find(string key)
+        public PatriciaTrieNode Root { get; }
+
+        public bool Find(string key)
         {
-            var node = Root;
-
-            foreach (var e in key)
-            {
-                var child = node.Childs.FirstOrDefault(x => x.Key.Equals(e));
-                if (child == null)
-                    return null;
-                node = child;
-            }
-
-            node = node.Childs.FirstOrDefault(child => child.Key.Equals('$'));
-
-            return node == null ? null : node.Value;
-        }
-
-        public void Insert(string key, int value)
-        {
-            if (key.Contains('$'))
+            if (!Regex.IsMatch(key, @"^[abcde]+$"))
                 throw new ArgumentException("Key contains not allowed symbols");
 
             var node = Root;
 
             foreach (var e in key)
             {
-                var child = node.Childs.FirstOrDefault(x => x.Key.Equals(e));
-                if (child == null)
-                {
-                    child = new PatriciaTrieNode(e, node);
-                    node.Childs.Add(child); 
-                }
-                node = child;
+                if (node.Childs[e - _startSymbolCode] != null)
+                    node = node.Childs[e - _startSymbolCode];
+                else
+                    return false;
             }
 
-            node.Childs.Add(new PatriciaTrieNode('$', node, value));
+            return node.Childs[_lastSymbolCode - _startSymbolCode + 1] != null;
+        }
+
+        public void Insert(string key)
+        {
+            if (!Regex.IsMatch(key, @"^[abcde]+$"))
+                throw new ArgumentException("Key contains not allowed symbols");
+
+            var node = Root;
+
+            foreach (var e in key)
+            {
+                if (node.Childs[e - _startSymbolCode] == null)
+                    node.Childs[e - _startSymbolCode] = new PatriciaTrieNode(e, _alphabet, node);
+                node = node.Childs[e - _startSymbolCode];
+            }
+
+            node.Childs[_lastSymbolCode - _startSymbolCode + 1] = new PatriciaTrieNode('$', _alphabet, node);
         }
     }
 }
