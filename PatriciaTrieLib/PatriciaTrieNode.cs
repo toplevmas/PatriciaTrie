@@ -17,21 +17,23 @@ namespace PatriciaTrieLib
 
         public int? Value { get; private set; }
 
-        public void Add(string key, int value)
+        public bool Find(string key)
         {
-            InsertKey(key, value);
-            /*PatriciaTrieNode child;
-            if (Childs.TryGetValue(key[0], out child))
+            if (!key.StartsWith(Key))
+                return false;
+
+            if (key.Length == Key.Length)
+                return Value.HasValue;
+
+            PatriciaTrieNode child;
+            if (Childs.TryGetValue(key[Key.Length], out child))
             {
-                InsertKey(key, value);
+                return child.Find(key.Substring(Key.Length));
             }
-            else
-            {
-                Childs.Add(key[0], new PatriciaTrieNode(key, value));
-            }*/
+            return false;
         }
 
-        private void InsertKey(string key, int value)
+        public void Add(string key, int value)
         {
             var i = 0;
             while (i < key.Length && i < Key.Length && Key[i] == key[i])

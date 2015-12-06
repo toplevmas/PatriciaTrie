@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 
 namespace PatriciaTrieLib
@@ -13,23 +12,10 @@ namespace PatriciaTrieLib
 
         public PatriciaTrieNode Root { get; }
 
-        /*public bool Find(string key)
+        public bool Lookup(string key)
         {
-            if (!Regex.IsMatch(key, @"^[abcde]+$"))
-                throw new ArgumentException("Key contains not allowed symbols");
-
-            var node = Root;
-
-            foreach (var e in key)
-            {
-                if (node.Childs[e - _startSymbolCode] != null)
-                    node = node.Childs[e - _startSymbolCode];
-                else
-                    return false;
-            }
-
-            return node.Childs[_lastSymbolCode - _startSymbolCode + 1] != null;
-        }*/
+            return Root.Find(key);
+        }
 
         public void Insert(string key, int value)
         {
@@ -48,20 +34,17 @@ namespace PatriciaTrieLib
         {
             if (node == null)
                 return string.Empty;
+
             var result = new StringBuilder();
 
-            result.Append($"['{node.Key}' (");
-            foreach (var child in node.Childs.Select(x => x.Key))
-                result.Append(child);
-            result.Append(")");
+            result.Append($"['{node.Key}' ({string.Join(" ", node.Childs.Select(x => x.Key))})");
             if (node.Value.HasValue)
                 result.Append($" {node.Value}");
             result.Append("] ");
 
             foreach (var child in node.Childs)
-            {
                 result.Append(Walk(child.Value));
-            }
+
             return result.ToString();
         }
     }
