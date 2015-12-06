@@ -82,14 +82,7 @@ namespace PatriciaTrieLib
                     }
                     else
                     {
-                        var oldChilds = new Dictionary<char, PatriciaTrieNode>(Childs);
-
-                        Childs.Clear();
-                        Childs.Add(Key[i], new PatriciaTrieNode(Key.Substring(i), childs: oldChilds));
                         Childs.Add(key[i], new PatriciaTrieNode(key.Substring(i), value));
-
-                        Key = Key.Substring(0, i);
-                        Value = null;
                     }
                 }
             }
