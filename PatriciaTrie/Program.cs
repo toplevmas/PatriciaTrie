@@ -21,7 +21,10 @@ namespace PatriciaTrie
                 {
                     case "1":
                         Console.WriteLine("Введите ключ:");
-                        patriciaTrie.Insert(Console.ReadLine(), 0);
+                        var key = Console.ReadLine();
+                        Console.WriteLine("Введите значение:");
+                        var value = Convert.ToInt32(Console.ReadLine());
+                        patriciaTrie.Insert(key, value);
                         break;
                     case "2":
                         Console.WriteLine("Введите ключ:");

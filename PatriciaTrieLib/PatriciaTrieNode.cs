@@ -47,8 +47,9 @@ namespace PatriciaTrieLib
                     var oldChilds = new Dictionary<char, PatriciaTrieNode>(Childs);
 
                     Childs.Clear();
-                    Childs.Add(Key[i], new PatriciaTrieNode(Key.Substring(i), childs: oldChilds));
+                    Childs.Add(Key[i], new PatriciaTrieNode(Key.Substring(i), Value, oldChilds));
                     Key = key.Substring(0, i);
+                    Value = value;
                 }
                 else
                 {

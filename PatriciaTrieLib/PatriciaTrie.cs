@@ -32,23 +32,30 @@ namespace PatriciaTrieLib
 
         public override string ToString()
         {
-            return Walk(Root);
+            return Walk(Root, 1);
         }
 
-        public static string Walk(PatriciaTrieNode node)
+        public static string Walk(PatriciaTrieNode node, int level)
         {
             if (node == null)
                 return string.Empty;
 
             var result = new StringBuilder();
 
-            result.Append($"['{node.Key}' ({string.Join(" ", node.Childs.Select(x => x.Key))})");
+            result.Append($"<'{node.Key}'");
             if (node.Value.HasValue)
                 result.Append($" {node.Value}");
-            result.Append("] ");
+            result.Append(">");
 
             foreach (var child in node.Childs)
-                result.Append(Walk(child.Value));
+            {
+                result.Append("\n");
+                for (var i = 0; i < level; i++)
+                {
+                    result.Append("\t");
+                }
+                result.Append(Walk(child.Value, level+1));
+            }
 
             return result.ToString();
         }
