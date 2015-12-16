@@ -90,36 +90,6 @@ namespace PatriciaTrieLib
             }
         }
 
-        /*public bool Delete(string key)
-        {
-            PatriciaTrieNode child;
-            if (Childs.TryGetValue(key[Key.Length], out child))
-            {
-                key = key.Substring(Key.Length);
-
-                if (!key.StartsWith(child.Key))
-                    return false;
-
-                if (key.Length == child.Key.Length)
-                {
-                    if (child.Value.HasValue)
-                    {
-                        if (child.Childs.Count > 0)
-                        {
-                            child.Value = null;
-                            return true;
-                        }
-                        Childs.Remove(key[0]);
-                        return true;
-                    }
-                    return false;
-                }
-
-                return child.Delete(key);
-            }
-            return false;
-        }*/
-
         public bool Delete(string key)
         {
             PatriciaTrieNode child;
