@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PatriciaTrieLib
 {
@@ -108,10 +109,17 @@ namespace PatriciaTrieLib
             if (!child.Value.HasValue)
                 return false;
 
-            if (child.Childs.Count > 0)
+            if (child.Childs.Count > 1)
                 child.Value = null;
-            else
+            else if (child.Childs.Count == 0)
                 Childs.Remove(key[0]);
+            else if (child.Childs.Count == 1)
+            {
+                var k = child.Childs.First().Key;
+                child.Childs[k].Key = child.Key + child.Childs[k].Key;
+                Childs.Clear();
+                Childs.Add(child.Key[0], child.Childs[k]);
+            }
 
             return true;
         }
