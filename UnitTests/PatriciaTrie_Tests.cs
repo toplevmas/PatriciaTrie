@@ -20,6 +20,10 @@ namespace UnitTests
             _patriciaTrie.Insert("aaabbb", 1);
             _patriciaTrie.Insert("aaaccd", 2);
             _patriciaTrie.Insert("aaacce", 3);
+            _patriciaTrie.Insert("aaaccdaaa", 4);
+            _patriciaTrie.Insert("aaaccdaaaccc", 5);
+
+            _patriciaTrie.Delete("aaacce");
 
             Assert.AreEqual("['' (a)] ['aaa' (b c)] ['bbb' () 1] ['cc' (d e)] ['d' () 2] ['e' () 3] ", _patriciaTrie.ToString());
         }

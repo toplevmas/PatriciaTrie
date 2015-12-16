@@ -25,6 +25,11 @@ namespace PatriciaTrieLib
                 Root.Add(key, value);
         }
 
+        public bool Delete(string key)
+        {
+            return Root.Delete(key);
+        }
+
         public override string ToString()
         {
             return Walk(Root);
