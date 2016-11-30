@@ -40,54 +40,48 @@ namespace PatriciaTrieLib
             while (i < key.Length && i < Key.Length && Key[i] == key[i])
                 i++;
 
-            if (i < Key.Length)
+            if (i == key.Length && i == Key.Length)//完全相等，更新value
             {
-                if (key.Length < Key.Length)
+                Value = value;
+            }
+            else if (i == key.Length)//Key包含key
+            {
+                var oldChilds = new Dictionary<char, PatriciaTrieNode>(Childs);
+
+                Childs.Clear();
+                Childs.Add(Key[i], new PatriciaTrieNode(Key.Substring(i), Value, oldChilds));
+                Key = key.Substring(0, i);
+                Value = value;
+            }
+            else if (i == Key.Length)//key被包含Key
+            {
+                PatriciaTrieNode child;
+                if (Childs.TryGetValue(key[i], out child))//检查childs如果已经
+                {
+                    child.Add(key.Substring(i), value);
+                }
+                else
+                {
+                    Childs.Add(key[i], new PatriciaTrieNode(key.Substring(i), value));
+                }
+            }
+            else//因为字符不等
+            {
+                PatriciaTrieNode child;
+                if (Childs.TryGetValue(key[i], out child))
+                {
+                    child.Add(key.Substring(i), value);
+                }
+                else
                 {
                     var oldChilds = new Dictionary<char, PatriciaTrieNode>(Childs);
 
                     Childs.Clear();
                     Childs.Add(Key[i], new PatriciaTrieNode(Key.Substring(i), Value, oldChilds));
-                    Key = key.Substring(0, i);
-                    Value = value;
-                }
-                else
-                {
-                    PatriciaTrieNode child;
-                    if (Childs.TryGetValue(key[i], out child))
-                    {
-                        child.Add(key.Substring(i), value);
-                    }
-                    else
-                    {
-                        var oldChilds = new Dictionary<char, PatriciaTrieNode>(Childs);
+                    Childs.Add(key[i], new PatriciaTrieNode(key.Substring(i), value));
 
-                        Childs.Clear();
-                        Childs.Add(Key[i], new PatriciaTrieNode(Key.Substring(i), Value, oldChilds));
-                        Childs.Add(key[i], new PatriciaTrieNode(key.Substring(i), value));
-
-                        Key = Key.Substring(0, i);
-                        Value = null;
-                    }
-                }
-            }
-            else
-            {
-                if (i == key.Length)
-                {
-                    Value = value;
-                }
-                else
-                {
-                    PatriciaTrieNode child;
-                    if (Childs.TryGetValue(key[i], out child))
-                    {
-                        child.Add(key.Substring(i), value);
-                    }
-                    else
-                    {
-                        Childs.Add(key[i], new PatriciaTrieNode(key.Substring(i), value));
-                    }
+                    Key = Key.Substring(0, i);
+                    Value = null;
                 }
             }
         }
