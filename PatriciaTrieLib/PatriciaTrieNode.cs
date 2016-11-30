@@ -40,11 +40,11 @@ namespace PatriciaTrieLib
             while (i < key.Length && i < Key.Length && Key[i] == key[i])
                 i++;
 
-            if (i == key.Length && i == Key.Length)//完全相等，更新value
+            if (i == key.Length && i == Key.Length)//Equals
             {
                 Value = value;
             }
-            else if (i == key.Length)//Key包含key
+            else if (i == key.Length)//Key contains key
             {
                 var oldChilds = new Dictionary<char, PatriciaTrieNode>(Childs);
 
@@ -53,10 +53,10 @@ namespace PatriciaTrieLib
                 Key = key.Substring(0, i);
                 Value = value;
             }
-            else if (i == Key.Length)//key被包含Key
+            else if (i == Key.Length)//key contains Key
             {
                 PatriciaTrieNode child;
-                if (Childs.TryGetValue(key[i], out child))//检查childs如果已经
+                if (Childs.TryGetValue(key[i], out child))
                 {
                     child.Add(key.Substring(i), value);
                 }
@@ -65,7 +65,7 @@ namespace PatriciaTrieLib
                     Childs.Add(key[i], new PatriciaTrieNode(key.Substring(i), value));
                 }
             }
-            else//因为字符不等
+            else//find a char not equals
             {
                 PatriciaTrieNode child;
                 if (Childs.TryGetValue(key[i], out child))
